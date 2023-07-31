@@ -1,7 +1,9 @@
 package com.annotations.springannotation.controller;
 
 import com.annotations.springannotation.beans.Book;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 //@Controller
@@ -25,7 +27,16 @@ public class ControllerDemo {
         return "Welcome to our homepage!";
     }
 
-    @RequestMapping(value = {"/books", "spring-mvc-demo"})     //to use multiple url use value property
+    @RequestMapping(value = {"/books", "spring-mvc-demo"}, method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE
+            })
+    //to use multiple url use value property
+    //by default GET method is used.
+
+    //produces method will generate the specified type of media type e.g. here it will generate json/xml type
+    //consumes method will receive the specified type of media type e.g. here it will generate json/xml type
+
     //@ResponseBody
     public Book getBooks() {
         return new Book(1, "Learn Spring", "Spring Core and Spring MVC");
