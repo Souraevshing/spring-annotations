@@ -2,6 +2,7 @@ package com.annotations.springannotation.controller;
 
 import com.annotations.springannotation.beans.Book;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,7 @@ public class ControllerDemo {
     //RequestBody is used to send data inside forms in-case for POST method
 
     @PostMapping(value = "/create-book", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Book createBook(@NotNull @RequestBody Book book) {
         this.book = book;
         System.out.println(book.getId());
