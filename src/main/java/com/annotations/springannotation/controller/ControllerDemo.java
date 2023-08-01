@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")  //all the urls will begin with /api/v1 when used at class level
 public class ControllerDemo {
     private Book book;
+    private int id;
 
     //Controller annotation will mark any class to behave as SpringMVC controller
     //It indicates class to handle http req and is a specialization of Component class
@@ -64,11 +65,27 @@ public class ControllerDemo {
     //can directly use ResponseEntity class that is of generic type and is same as  ResponseMapping
     //we use PathVariable to send values inside url in the request.
     @PutMapping(value = "/update-book/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book updatedBook) {
         System.out.println("Book with id" + id + " updated.");
         System.out.println("Title : " + updatedBook.getTitle() + " description : " + updatedBook.getDesc());
         updatedBook.setId(id);
         return ResponseEntity.ok(updatedBook);
+    }
+
+    //delete request
+    @DeleteMapping(value = "/delete-book/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteBook(@PathVariable int id) {
+        return ResponseEntity.ok("Book with id " + id + " deleted successfully.");
+    }
+
+    //PathVariable is used to send values along with url as req and fetch response based on request.
+    @GetMapping("/books/{id}/{title}/{desc}")
+    public ResponseEntity<Book> pathVariableDemo(@PathVariable int id, @PathVariable String title, @PathVariable String desc) {
+        System.out.println(id);
+        Book book = new Book();
+        book.setId(id);
+        book.setTitle(title);
+        book.setDesc(desc);
+        return ResponseEntity.ok(book);
     }
 }

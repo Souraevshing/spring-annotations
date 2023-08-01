@@ -5,6 +5,10 @@ public class Book {
     private String title;
     private String desc;
 
+    public Book() {
+        
+    }
+
     public Book(int id, String title, String desc) {
         this.id = id;
         this.title = title;
