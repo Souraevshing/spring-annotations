@@ -4,6 +4,7 @@ import com.annotations.springannotation.beans.Book;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 //@Controller
@@ -48,6 +49,7 @@ public class ControllerDemo {
     //PostMapping is shortcut for post request and is specialization of RequestMapping.
     //by, default it uses POST method.
     //RequestBody is used to send data inside forms in-case for POST method
+    //ResponseStatus is used to send http status message along with response
 
     @PostMapping(value = "/create-book", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -59,4 +61,14 @@ public class ControllerDemo {
         return book;
     }
 
+    //can directly use ResponseEntity class that is of generic type and is same as  ResponseMapping
+    //we use PathVariable to send values inside url in the request.
+    @PutMapping(value = "/update-book/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book updatedBook) {
+        System.out.println("Book with id" + id + " updated.");
+        System.out.println("Title : " + updatedBook.getTitle() + " description : " + updatedBook.getDesc());
+        updatedBook.setId(id);
+        return ResponseEntity.ok(updatedBook);
+    }
 }
