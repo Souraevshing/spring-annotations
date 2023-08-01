@@ -88,4 +88,15 @@ public class ControllerDemo {
         book.setDesc(desc);
         return ResponseEntity.ok(book);
     }
+
+    //RequestParam is used to extract query parameter from url and bind them to method arguments.
+    @GetMapping("/books/query")
+    public ResponseEntity<Book> requestParamDemo(@RequestParam(name = "id") int id, @RequestParam(name = "title") String title) {
+        System.out.println(id);
+        System.out.println(title);
+        Book book = new Book();
+        book.setId(id);
+        book.setTitle(title);
+        return ResponseEntity.ok(book);
+    }
 }
